@@ -1,0 +1,11 @@
+.head{
+    background: linear-gradient(to right ,black,red);
+    color:gold;
+    width: 50%;
+    
+    margin: auto;
+    text-align: center;
+    border-radius: 40px;
+    border: 2px solid yellow;
+    
+}
