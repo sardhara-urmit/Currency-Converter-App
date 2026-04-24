@@ -79,7 +79,7 @@ input , .ch{
     color: gold;
     box-shadow: inset 0px 0px 10px 1px yellow;
 }
-/* Mobile Devices (Phones - 600px se niche wali screens) */
+/* Mobile Devices  */
 @media (max-width: 776px) {
     .head{
         border-radius: 20px;
@@ -91,7 +91,7 @@ input , .ch{
    }
    .from ,.to{
     width: 50%;
-    height: 210px;
+    height: 220px;
     /* height: auto; */
    }
    .hd{
