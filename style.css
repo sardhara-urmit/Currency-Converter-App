@@ -90,7 +90,7 @@ input , .ch{
     flex-direction: column;
    }
    .from ,.to{
-    width: 50%;
+    width: 60%;
     height: 220px;
     /* height: auto; */
    }
