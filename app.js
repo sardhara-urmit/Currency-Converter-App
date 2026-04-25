@@ -55,7 +55,7 @@ button.addEventListener("click", async (evt) => {
 
     // Yeh check add karo
     if (!data.rates || !data.rates[tocur.value.toUpperCase()]) {
-        alert("currency supported not support");
+        alert("currency  not supported");
         return;
     }
 
