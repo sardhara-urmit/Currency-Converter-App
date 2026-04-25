@@ -1,77 +1,69 @@
-let base_url ="https://api.frankfurter.app/latest?";
-// let url ="https://api.frankfurter.app/latest?from=INR&to=USD";
-
-
-
+let base_url = "https://api.frankfurter.dev/v1/latest?";
 
 let dropdowns = document.querySelectorAll(".ch");
 let button = document.querySelector("#btn");
-let fromcur =document.querySelector("#from");
-let tocur =document.querySelector("#to");
+let fromcur = document.querySelector("#from");
+let tocur = document.querySelector("#to");
 
-
-
-for (let select of dropdowns) {
-
-    for (let name in countryList) {
-
-        let newOption = document.createElement("option");
-
-        newOption.innerText = name;
-        newOption.value = name;
-
-        select.append(newOption);
-    }
-}
-
+// Dropdowns populate karo (sirf ek baar)
 for (let select of dropdowns) {
     for (let currCode in countryList) {
         let newOption = document.createElement("option");
         newOption.innerText = currCode;
         newOption.value = currCode;
 
-        // Default value set  (Optional)
         if (select.name === "from" && currCode === "USD") {
-            newOption.selected = "selected";
+            newOption.selected = true;
         } else if (select.name === "to" && currCode === "INR") {
-            newOption.selected = "selected";
+            newOption.selected = true;
         }
 
         select.append(newOption);
     }
 
-    
     select.addEventListener("change", (evt) => {
-        updateFlag(evt.target); 
+        updateFlag(evt.target);
     });
 }
 
-// Flag update  function
+// Flag update function
 const updateFlag = (element) => {
-    let currCode = element.value; // USD, INR, etc.
-    let countryCode = countryList[currCode]; // US, IN, etc.
+    let currCode = element.value;
+    let countryCode = countryList[currCode];
     let newSrc = `https://flagsapi.com/${countryCode}/flat/64.png`;
-    
-    // Dropdown  image select  source change 
     let img = element.parentElement.querySelector("img");
     img.src = newSrc;
 };
 
-button.addEventListener("click", async(evt)=>{
+// Convert button click
+button.addEventListener("click", async (evt) => {
     evt.preventDefault();
-    let amount =document.querySelector("#Ammount");
-    let amountval= amount.value;
-    console.log(amountval);
-    if (amountval =="" || amountval <1) {
-        amountval =1;
-        amount.value="1";
-        
+
+    let amount = document.querySelector("#Ammount");
+    let amountval = amount.value;
+
+    if (amountval == "" || amountval < 1) {
+        amountval = 1;
+        amount.value = "1";
     }
-    
 
-    // console.log(fromcur.value,tocur.value);
-    let url =`${base_url}from=${fromcur.value.toLowerCase()}&to=${tocur.value.toLowerCase()}`;
-    let response =await fetch (url);
-    console.log(response);
+    let url = `${base_url}from=${fromcur.value.toUpperCase()}&to=${tocur.value.toUpperCase()}`;
 
-})
+    try {
+        let response = await fetch(url);
+        let data = await response.json();
+
+        let rate = data.rates[tocur.value.toUpperCase()];
+        let finalAmount = (amountval * rate).toFixed(2);
+
+        // Result dikhao
+        let resultInput = document.querySelectorAll("input")[1];
+        resultInput.value = finalAmount;
+
+        console.log(`1 ${fromcur.value} = ${rate} ${tocur.value}`);
+        console.log(`Final Amount: ${finalAmount}`);
+
+    } catch (err) {
+        console.log("Error aaya:", err);
+    }
+});
