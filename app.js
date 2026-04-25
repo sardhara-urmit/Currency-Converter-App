@@ -49,21 +49,22 @@ button.addEventListener("click", async (evt) => {
 
     let url = `${base_url}from=${fromcur.value.toUpperCase()}&to=${tocur.value.toUpperCase()}`;
 
-    try {
-        let response = await fetch(url);
-        let data = await response.json();
+ try {
+    let response = await fetch(url);
+    let data = await response.json();
 
-        let rate = data.rates[tocur.value.toUpperCase()];
-        let finalAmount = (amountval * rate).toFixed(2);
-
-        // Result dikhao
-        let resultInput = document.querySelectorAll("input")[1];
-        resultInput.value = finalAmount;
-
-        console.log(`1 ${fromcur.value} = ${rate} ${tocur.value}`);
-        console.log(`Final Amount: ${finalAmount}`);
-
-    } catch (err) {
-        console.log("Error aaya:", err);
+    // Yeh check add karo
+    if (!data.rates || !data.rates[tocur.value.toUpperCase()]) {
+        alert("currency supported not support");
+        return;
     }
+
+    let rate = data.rates[tocur.value.toUpperCase()];
+    let finalAmount = (amountval * rate).toFixed(2);
+    let resultInput = document.querySelectorAll("input")[1];
+    resultInput.value = finalAmount;
+
+} catch (err) {
+    console.log("Error aaya:", err);
+}
 });
