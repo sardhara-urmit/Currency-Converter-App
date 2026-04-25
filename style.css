@@ -80,7 +80,7 @@ input , .ch{
     box-shadow: inset 0px 0px 10px 1px yellow;
 }
 /* Mobile Devices  */
-@media (max-width: 776px) {
+@media (max-width: 1000px) {
     .head{
         border-radius: 20px;
     }
@@ -97,7 +97,8 @@ input , .ch{
    .hd{
     /* margin-top: 10px; */
     /* display: block; */
-    width: 40%;
+    width: 45%;
+    padding: 2%;
     /* margin: auto; */
    }
 }
